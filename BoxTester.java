@@ -1,4 +1,5 @@
 import javafx.scene.shape.Box;
+import javafx.scene.Group;
 import javafx.scene.paint.*;
 /**
  This Class builds the box shaped parcels one by one and attaches them to the Object
@@ -7,7 +8,7 @@ public class BoxTester {
 
     private static final int RESOLUTION = 50;
     private int[][][] array;
-    private Box box;
+    private Group parcel;
     /**
      Constructs the Object for a specific array
      */
@@ -27,13 +28,13 @@ public class BoxTester {
         int TEMPL = 0;
         int TEMPH = 0;
         int TEMPW = 0;
-        for(int a=i; a+i<array.length && array[a][j][k] == ID; a++) {
+        for(int a=i; a<array.length && array[a][j][k] == ID; a++) {
             TEMPL++;
         }
-        for(int b=j; b+j<array[0].length && array[i][b][k] == ID; b++) {
+        for(int b=j; b<array[0].length && array[i][b][k] == ID; b++) {
             TEMPH++;
         }
-        for(int c=k; c+k<array[0][0].length && array[i][j][c] == ID; c++) {
+        for(int c=k; c<array[0][0].length && array[i][j][c] == ID; c++) {
             TEMPW++;
         }
         build(TEMPL, TEMPH, TEMPW, i, j, k);
@@ -58,17 +59,28 @@ public class BoxTester {
      */
     public void build(int x, int y, int z, int i, int j, int k) {
         PhongMaterial material = new PhongMaterial(new Color(Math.random(), Math.random(), Math.random(),1.0));
-        box = new Box(x* RESOLUTION, y* RESOLUTION, z* RESOLUTION);
-        box.setMaterial(material);
-        box.setTranslateX(i* RESOLUTION);
-        box.setTranslateY(j* RESOLUTION);
-        box.setTranslateZ(k* RESOLUTION);
+        parcel = new Group();
+        for(int a=0; a < x; a++) {
+            for(int b=0; b < y; b++) {
+                for(int c=0; c < z; c++) {
+                    Box cube = new Box(RESOLUTION, RESOLUTION, RESOLUTION);
+                    cube.setMaterial(material);
+                    cube.setTranslateX(a*RESOLUTION);
+                    cube.setTranslateY(b*RESOLUTION);
+                    cube.setTranslateZ(c*RESOLUTION);
+                    parcel.getChildren().add(cube);
+                }
+            }
+        }
+        parcel.setTranslateX(i*RESOLUTION);
+        parcel.setTranslateY(j*RESOLUTION);
+        parcel.setTranslateZ(k*RESOLUTION);
     }
     /**
      Returns the 3D parcel currently attached to this Object
      @return the box parcel
      */
-    public Box getBox() {
-        return box;
+    public Group getBox() {
+        return parcel;
     }
 }
