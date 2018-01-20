@@ -11,7 +11,7 @@ public class Main {
     private static boolean usingPents = false;
     private static ArrayList<Integer> values = new ArrayList<>();
 
-    public int[][][] compute(int[] userSettings, boolean pentMode) {
+    public int[][][] compute(int[] userSettings, boolean pentMode, String algorithmChoice) {
         int width = userSettings[3];
         int height = userSettings[4];
         int depth = userSettings[5];
@@ -33,18 +33,21 @@ public class Main {
 
         everyShape = new int[depth][height][width];
         long startTime = System.nanoTime();
-        String command = "Div";
+        String command = algorithmChoice;
         Algorithm algorithm;
-
+        System.out.println(algorithmChoice);
         switch (command) {
             case "Greedy":
                 algorithm = new Greedy(width, height, depth, values, inputArray);
                 break;
-            case "Backtracking":
+            case "BackTracking":
                 algorithm = new Backtracking(width, height, depth, values, inputArray);
                 break;
-            case "DP":
+            case "Dynamic Programming":
                 algorithm = new DynamicProgramming(width, height, depth, values, inputArray);
+                break;
+            case "Divide and Conquer":
+                algorithm = new DivideAndConquer(width, height, depth, values, inputArray);
                 break;
             default:
                 algorithm = new DivideAndConquer(width, height, depth, values, inputArray);
