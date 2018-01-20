@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.stage.Stage;
 
 public class Main {
 
@@ -10,37 +11,27 @@ public class Main {
     private static boolean usingPents = false;
     private static ArrayList<Integer> values = new ArrayList<>();
 
-    public static void main(String[] args) {
-
-        //Start input
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Width, height and depth of the cargoSpace: ");
-        String boardSize = sc.nextLine();
-        String[] dimension = boardSize.split(" ");
-
-
-        int width = Integer.parseInt(dimension[0]);
-        int height = Integer.parseInt(dimension[1]);
-        int depth = Integer.parseInt(dimension[2]);
+    public int[][][] compute(int[] userSettings, boolean pentMode) {
+        int width = userSettings[3];
+        int height = userSettings[4];
+        int depth = userSettings[5];
 
         System.out.println("Write letters without spaces:  ");
-        String input = sc.nextLine();
-
+        String input = null;
+        if(pentMode == true) {
+          input = "tpl";
+        } else {
+          input = "abc";
+        }
         char[] inputArray = input.toLowerCase().toCharArray();
 
         parcelRotations = PentominoFactory.createLetters(inputArray);
-
-        values.add(3);
-        values.add(4);
-        values.add(5);
+        values.add(userSettings[0]);
+        values.add(userSettings[1]);
+        values.add(userSettings[2]);
         assignValues();
 
         everyShape = new int[depth][height][width];
-
-       /* for(Pentomino currentPentomino: parcelRotations)
-            System.out.println(Arrays.deepToString(currentPentomino.getPositioningInSpace()));
-        System.out.println(parcelRotations.length);*/
-
         long startTime = System.nanoTime();
         String command = "Div";
         Algorithm algorithm;
@@ -61,7 +52,6 @@ public class Main {
         }
 
         everyShape = algorithm.solve();
-
         long endTime = System.nanoTime();
 
         System.out.println("Answer found in " + (endTime - startTime) / 1000000 + " milliseconds");
@@ -77,14 +67,12 @@ public class Main {
                 System.out.println();
             }
             System.out.println(algorithm.score);
-
-            Truck.insertArray(everyShape, usingPents);
-            Truck.launch(Truck.class, args);
         } else {
+            everyShape = new int[1][1][1];
+            everyShape[0][0][0] = 215789;
             System.out.println("No possible solution");
         }
-
-
+        return everyShape;
     }
 
     private static void assignValues() {
