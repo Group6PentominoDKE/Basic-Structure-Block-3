@@ -20,7 +20,7 @@ public class Greedy extends Algorithm{
             if (currentFits(x, y, z, currentPentomino)) {
 
                 //calculatePosition();
-
+                ID++;
                 putBlockOnTheBoard(x, y, z, currentPentomino);
 
                 score+= currentPentomino.getValue();
