@@ -101,11 +101,8 @@ public class DivideAndConquer extends Algorithm {
 
             if (currentFits(x, y, z, currentPentomino)) {
 
-                //calculatePosition();
-
-                putBlockOnTheBoard(x, y, z, currentPentomino);
-
                 ID++;
+                putBlockOnTheBoard(x, y, z, currentPentomino);
 
                 score+= currentPentomino.getValue();
 
