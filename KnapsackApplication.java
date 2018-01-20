@@ -106,6 +106,7 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
 	private static final int RotateAngle = 5;
 	private static final int RESOLUTION = 50;
 	private boolean pentMode;
+	private String algorithm;
 
 	public void start(Stage primaryStage)  {
 		window = primaryStage;
@@ -116,7 +117,8 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
 		combbox = new ComboBox();
 	    combbox.getItems().add("Greedy");
 	    combbox.getItems().add("BackTracking");
-	    combbox.getItems().add("Dynamic programming");
+			combbox.getItems().add("Dynamic Programming");
+			combbox.getItems().add("Divide and Conquer");
 	    // Set the first choice as default.
 		combbox.getSelectionModel().selectFirst();
 		combbox.setOnAction(this);
@@ -124,7 +126,8 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
 	    combbox1 = new ComboBox();
 	    combbox1.getItems().add("Greedy");
 	    combbox1.getItems().add("BackTracking");
-	    combbox1.getItems().add("Dynamic programming");
+	    combbox1.getItems().add("Dynamic Programming");
+			combbox.getItems().add("Divide and Conquer");
 		// Set the first choice as default.
 		combbox1.getSelectionModel().selectFirst();
 	    combbox1.setOnAction(this);
@@ -320,22 +323,25 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
 	    }
 	    if (event.getSource() == abcok || event.getSource() == button) {
 				Main main = new Main();
+
 				if(pentMode == true) {
+					algorithm = (String)combbox1.getValue();
 					userInput[0] = Integer.parseInt(VAfield.getText());
 					userInput[1] = Integer.parseInt(VBfield.getText());
 					userInput[2] = Integer.parseInt(VCfield.getText());
-					userInput[3] = (int)Double.parseDouble(PlengthField.getText());
-					userInput[4] = (int)Double.parseDouble(PwidthField.getText());
-					userInput[5] = (int)Double.parseDouble(PheightField.getText());
+					userInput[3] = (int)Double.parseDouble(PlengthField.getText())*2;
+					userInput[4] = (int)Double.parseDouble(PwidthField.getText())*2;
+					userInput[5] = (int)Double.parseDouble(PheightField.getText())*2;
 				} else {
-						userInput[0] = Integer.parseInt(LField.getText());
-						userInput[1] = Integer.parseInt(PField.getText());
-						userInput[2] = Integer.parseInt(TField.getText());
-						userInput[3] = (int)Double.parseDouble(BlengthField.getText());
-						userInput[4] = (int)Double.parseDouble(BwidthField.getText());
-						userInput[5] = (int)Double.parseDouble(BheightField.getText());
+					algorithm = (String)combbox.getValue();
+					userInput[0] = Integer.parseInt(LField.getText());
+					userInput[1] = Integer.parseInt(PField.getText());
+					userInput[2] = Integer.parseInt(TField.getText());
+					userInput[3] = (int)Double.parseDouble(BlengthField.getText())*2;
+					userInput[4] = (int)Double.parseDouble(BwidthField.getText())*2;
+					userInput[5] = (int)Double.parseDouble(BheightField.getText())*2;
 				}
-				resultArray = main.compute(userInput, pentMode);
+				resultArray = main.compute(userInput, pentMode, algorithm);
 				if(resultArray[0][0][0] != 215789) {
 					Group root = new Group();
         	Scene sceneCargo = new Scene(root, WINDOW_LENGTH, WINDOW_HEIGHT, true);
