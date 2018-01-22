@@ -48,7 +48,7 @@ public class Main {
 					inputArray[1] = input.charAt(2);
 					inputArray[2] = input.charAt(1);
 				}
-			
+		}
 		else if (userSettings[1] > userSettings[0] && userSettings[1] >= userSettings[2]) {
 			/*
 			values.add(userSettings[1]);
