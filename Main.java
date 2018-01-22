@@ -97,11 +97,6 @@ public class Main {
 				}
 			}
 		
-		System.out.print(inputArray[0]);
-		System.out.print(inputArray[1]);
-		System.out.print(inputArray[2]);
-		System.exit(0);
-		
 		parcelRotations = PentominoFactory.createLetters(inputArray);
 		
 		
