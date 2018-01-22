@@ -19,18 +19,99 @@ public class Main {
         System.out.println("Write letters without spaces:  ");
         String input = null;
         if(pentMode == true) {
-          input = "tpl";
+          input = "lpt";
         } else {
           input = "abc";
         }
         char[] inputArray = input.toLowerCase().toCharArray();
-
-        parcelRotations = PentominoFactory.createLetters(inputArray);
+        // Make the values array start in descending order(so the 1st value is the highest, 2nd value is 2nd highest and etc.)
+        
+		if (userSettings[0] >= userSettings[1] && userSettings[0] >= userSettings[2]) {
+			/*
+			values.add(userSettings[0]);
+			if (userSettings[1] >= userSettings[2]) {
+				values.add(userSettings[1]);
+				values.add(userSettings[2]);
+			}
+			else {
+				values.add(userSettings[2]);
+				values.add(userSettings[1]);
+			}
+			*/
+			
+				inputArray[0] = input.charAt(0);
+				if (userSettings[1] >= userSettings[2]) {
+					inputArray[1] = input.charAt(1);
+					inputArray[2] = input.charAt(2);
+				}
+				else {
+					inputArray[1] = input.charAt(2);
+					inputArray[2] = input.charAt(1);
+				}
+			
+		else if (userSettings[1] > userSettings[0] && userSettings[1] >= userSettings[2]) {
+			/*
+			values.add(userSettings[1]);
+			if (userSettings[0] >= userSettings[2]) {
+				values.add(userSettings[0]);
+				values.add(userSettings[2]);
+			}
+			else {
+				values.add(userSettings[2]);
+				values.add(userSettings[0]);
+			}     
+			*/
+		
+				inputArray[0] = input.charAt(1);
+				if (userSettings[0] >= userSettings[2]) {
+					inputArray[1] = input.charAt(0);
+					inputArray[2] = input.charAt(2);
+				}
+				else {
+					inputArray[1] = input.charAt(2);
+					inputArray[2] = input.charAt(0);
+				}
+			}
+		
+		
+		else if (userSettings[2] > userSettings[0] && userSettings[2] > userSettings[1]) {
+			/*
+			values.add(userSettings[2]);
+			if (userSettings[0] >= userSettings[1]) {
+				values.add(userSettings[0]);
+				values.add(userSettings[1]);
+			}
+			else {
+				values.add(userSettings[1]);
+				values.add(userSettings[0]);
+			}
+			*/
+				inputArray[0] = input.charAt(2);
+				if (userSettings[0] >= userSettings[1]) {
+					inputArray[1] = input.charAt(0);
+					inputArray[2] = input.charAt(1);
+				}
+				else {
+					inputArray[1] = input.charAt(1);
+					inputArray[2] = input.charAt(0);
+				}
+			}
+		
+		System.out.print(inputArray[0]);
+		System.out.print(inputArray[1]);
+		System.out.print(inputArray[2]);
+		System.exit(0);
+		
+		parcelRotations = PentominoFactory.createLetters(inputArray);
+		
+		
+		
         values.add(userSettings[0]);
         values.add(userSettings[1]);
         values.add(userSettings[2]);
+		
         assignValues();
-
+           // values.get(0);
         everyShape = new int[depth][height][width];
         long startTime = System.nanoTime();
         String command = algorithmChoice;
