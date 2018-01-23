@@ -3,6 +3,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.paint.*;
 /**
  This Class makes an ordered collection of parcels
+ @author Lukas Padolevicius
  */
 public class CargoStacker {
 
