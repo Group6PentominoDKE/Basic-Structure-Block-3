@@ -10,6 +10,7 @@ public class DynamicProgramming extends Algorithm {
     private int[][][][] pointsArray;
     private Filled[][][][] filledArray;
     final private int[] DIMENSIONSOFFINALBOX = {8,5,33};
+    private int ID = 1;
 
     /**
      * Constructor
@@ -31,15 +32,11 @@ public class DynamicProgramming extends Algorithm {
             for (int z = 0; z< DIMENSIONSOFFINALBOX[2]; z++)
                 for (int y = 0; y< DIMENSIONSOFFINALBOX[1]; y++)
                     for (int x = 0; x< DIMENSIONSOFFINALBOX[0]; x++) {
-                        ID++;
                         String[][][] currentBox = filledArray[1][z][y][x].getFilled();
                         if (boxFits(parcelRotations[i].getStringRepresentation(ID),currentBox)) {
                             String[][][] firstBox = parcelRotations[i].getStringRepresentation(ID);
                             int[] startCoords = {0,0,currentBox.length-firstBox.length};
                             placeSmallerArrayInArray(currentBox, firstBox, startCoords);
-                            if (ID == 1079) {
-                            	int h = 0;
-                            }
                             score = (int)fillBox(currentBox,1, parcelRotations[i], ID);
                             if (pointsArray[0][z][y][x] <= score) {
                                 pointsArray[1][z][y][x] = score;
@@ -556,7 +553,7 @@ public class DynamicProgramming extends Algorithm {
             } else {
                 int[] intDimension = splitStringToInt(newDimensions[(int) maxPoints[0]][1]);
                 String[][][] maxSmallBox = filledArray[currentLevel][intDimension[2]-1][intDimension[1]-1][intDimension[0]-1].getFilled();
-                addIDToBox(maxSmallBox, ID);
+                addIDToBox(maxSmallBox);
                 int[] intStartCoords = splitStringToInt(newDimensions[(int) maxPoints[0]][0]);
                 placeSmallerArrayInArray(box,maxSmallBox,intStartCoords);
                 return maxPoints[1] + fillBox(box,currentLevel, currentPent, ID);
@@ -571,16 +568,17 @@ public class DynamicProgramming extends Algorithm {
      * @param box the current cargo space
      * @param id the uniquely identifying number for this iteration
      */
-    private void addIDToBox(String[][][] box, int id){
+    private void addIDToBox(String[][][] box){
         for (int z = 0; z < box.length; z++)
             for ( int y = 0; y < box[0].length; y++)
                 for (int x = 0; x < box[0][0].length; x++){
                     if (box[z][y][x] != "0") {
                         String addition = box[z][y][x];
-                        addition = id+addition;
+                        addition = ID+addition;
                         box[z][y][x] = addition;
                     }
                 }
+        ID++;
     }
 
     private void printMatrix(int[][][] matrix) {
