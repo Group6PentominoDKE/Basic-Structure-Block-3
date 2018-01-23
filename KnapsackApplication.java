@@ -16,8 +16,11 @@ import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
-
+/**
+Class that displays the user input interface and the visual ouput
+@author Kaspar Kallast
+@author Lukas Padolevicius
+*/
 
 public class KnapsackInterface extends Application implements EventHandler<ActionEvent> {
     // Declare variables, buttons
@@ -73,7 +76,10 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
     private static final int RESOLUTION = 50;
     private boolean pentMode;
     private String algorithm;
-
+		/**
+		the main method
+		@param primaryStage the Stage for the Application
+		*/
     public void start(Stage primaryStage)  {
         window = primaryStage;
         window.setTitle("Container Fitting");
@@ -240,7 +246,7 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
         // Stuff regarding buttons and GUI ends here.
         window.show();
     }
-    /*
+    /**
         Generate a new slider control initialized to the given value.
         @param value the initial value of the slider.
         @param helpText the tool tip text to use for the slider.
@@ -256,7 +262,7 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
         slider.setTooltip(new Tooltip(helpText));
         return slider;
     }
-    /*
+    /**
      * Create a toggle group of buttons where one toggle will always remain switched on.
      */
     class PersistentButtonToggleGroup extends ToggleGroup {
@@ -277,7 +283,10 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
             });
         }
     }
-    // Handle the button clicks.
+		/**
+		Event handler for all user input
+		@param event the event to handle
+		*/
     public void handle(ActionEvent event) {
         if (event.getSource() == abc) {
             pentMode = false;
