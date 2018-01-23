@@ -297,9 +297,9 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
                 userInput[1] = Integer.parseInt(VBfield.getText());
                 userInput[2] = Integer.parseInt(VCfield.getText());
 
-                userInput[3] = (int)(Double.parseDouble(BlengthField.getText())*2);
-                userInput[4] = (int)(Double.parseDouble(BwidthField.getText())*2);
-                userInput[5] = (int)(Double.parseDouble(BheightField.getText())*2);
+                userInput[3] = (int)(Double.parseDouble(BwidthField.getText())*2);
+                userInput[4] = (int)(Double.parseDouble(BheightField.getText())*2);
+                userInput[5] = (int)(Double.parseDouble(BlengthField.getText())*2);
             } else {
 
                 algorithm = (String)combbox1.getValue();
@@ -307,9 +307,9 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
                 userInput[1] = Integer.parseInt(PField.getText());
                 userInput[2] = Integer.parseInt(TField.getText());
 
-                userInput[3] = (int)(Double.parseDouble(PlengthField.getText())*2);
-                userInput[4] = (int)(Double.parseDouble(PwidthField.getText())*2);
-                userInput[5] = (int)(Double.parseDouble(PheightField.getText())*2);
+                userInput[3] = (int)(Double.parseDouble(PwidthField.getText())*2);
+                userInput[4] = (int)(Double.parseDouble(PheightField.getText())*2);
+                userInput[5] = (int)(Double.parseDouble(PlengthField.getText())*2);
             }
             resultArray = main.compute(userInput, pentMode, algorithm);
             if(resultArray[0][0][0] != 215789) {
