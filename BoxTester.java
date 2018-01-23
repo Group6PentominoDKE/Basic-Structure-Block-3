@@ -3,6 +3,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.*;
 /**
  This Class builds the box shaped parcels one by one and attaches them to the Object
+ @author Lukas Padolevicius
  */
 public class BoxTester {
 
