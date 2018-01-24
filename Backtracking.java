@@ -1,10 +1,18 @@
 import java.util.ArrayList;
 /**
  * @author Zhecho Mitev
+ * @author Ahmad Mohammad
  */
 public class Backtracking extends Algorithm {
 
-
+    /**
+     * Constructor that calls the constructor of the Algorithm class
+     * @param width width of the container
+     * @param height height of the container
+     * @param depth depth of the container
+     * @param values 3 values that are going to be assigned to the parcels
+     * @param inputArray character representation of the sorted parcels by value
+     */
     public Backtracking(int width, int height, int depth, ArrayList<Integer> values, char[] inputArray) {
         super(width, height, depth, values, inputArray);
     }
@@ -96,20 +104,20 @@ public class Backtracking extends Algorithm {
      */
     private void searchSolution(int x, int y, int z) {
 
-        for (Pentomino currentPentomino : parcelRotations) {
+        for (Parcel currentParcel : parcelRotations) {
 
-            boolean currentFits = currentFits(x, y, z, currentPentomino);
+            boolean currentFits = currentFits(x, y, z, currentParcel);
 
             if (currentFits) {
 
                 ID++;
-                putBlockOnTheBoard(x, y, z, currentPentomino);
+                putBlockOnTheBoard(x, y, z, currentParcel);
 
-                if (usingPents(currentPentomino.getType()) && impossibleCase()) {
-                    removeBlock(x, y, z , currentPentomino);
+                if (usingPents(currentParcel.getType()) && impossibleCase()) {
+                    removeBlock(x, y, z , currentParcel);
                     continue;
                 }
-                score += currentPentomino.getValue();
+                score += currentParcel.getValue();
 
                 boolean freeCellFound = false;
 
@@ -140,8 +148,8 @@ public class Backtracking extends Algorithm {
 
                 }
 
-                removeBlock(x, y, z, currentPentomino); //backtracking
-                score -= currentPentomino.getValue();
+                removeBlock(x, y, z, currentParcel); //backtracking
+                score -= currentParcel.getValue();
             }
 
         }
