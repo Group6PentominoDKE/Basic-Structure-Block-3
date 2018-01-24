@@ -1,6 +1,7 @@
 import javafx.geometry.Point3D;
 /**
  * Divide And Conquer class that extends the abstract class Algorithm
+ * @author Zhecho Mitev
  */
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class DivideAndConquer extends Algorithm {
             long startTime = System.nanoTime();
 
             long endTime = System.nanoTime();
-            while (((endTime - startTime) / 1000000) < MAX_MILLISECONDS_FOR_EXECUTION) {//after every filled box the maxDepthOfRecursion is increased 
+            while (((endTime - startTime) / 1000000) < MAX_MILLISECONDS_FOR_EXECUTION) {//after every filled box the maxDepthOfRecursion is increased
                 maxDepthOfRecursion++;
                 while (true) {//filling one truck considering 'maxDepthOfRecursion' number of parcels
 
