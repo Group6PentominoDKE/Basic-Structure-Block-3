@@ -6,7 +6,7 @@ import java.util.Arrays;
  @author Christie Courtnage
  */
 
-public class PentominoFactory {
+public class RotationsFactory {
 
 
     public static final int ALL_POSSIBLE_ROTATIONS = 24;
@@ -187,7 +187,7 @@ public class PentominoFactory {
     }
 
     /**
-     *	Creates a mirror image 
+     *	Creates a mirror image
      *	@param shape The original shape
      *	@return A mirror image of the of the front plane, mirrored on a Xy axis
      */
@@ -208,7 +208,7 @@ public class PentominoFactory {
     }
 
     /**
-     *	Creates a mirror image 
+     *	Creates a mirror image
      *	@param shape The original shape
      *	@return A mirror image of the of the front plane, mirrored on a Xz axis
      */
@@ -229,7 +229,7 @@ public class PentominoFactory {
     }
 
     /**
-     *	Creates a mirror image 
+     *	Creates a mirror image
      *	@param shape The original shape
      *	@return A mirror image of the of the front plane, mirrored on a Zy axis
      */
