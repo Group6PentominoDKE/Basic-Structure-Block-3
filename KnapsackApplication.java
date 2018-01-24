@@ -252,37 +252,11 @@ public class KnapsackInterface extends Application implements EventHandler<Actio
         @param helpText the tool tip text to use for the slider.
         @return the new slider.
        */
-    private Slider createSlider(final double value, final String helpText) {
-        final Slider slider = new Slider(-50, 151, value);
-        slider.setMajorTickUnit(50);
-        slider.setMinorTickCount(0);
-        slider.setShowTickMarks(true);
-        slider.setShowTickLabels(true);
-        slider.setStyle("-fx-text-fill: white");
-        slider.setTooltip(new Tooltip(helpText));
-        return slider;
-    }
+  
     /**
      * Create a toggle group of buttons where one toggle will always remain switched on.
      */
-    class PersistentButtonToggleGroup extends ToggleGroup {
-        PersistentButtonToggleGroup() {
-            super();
-            getToggles().addListener(new ListChangeListener<Toggle>() {
-                @Override public void onChanged(Change<? extends Toggle> c) {
-                    while (c.next()) {
-                        for (final Toggle addedToggle : c.getAddedSubList()) {
-                            ((ToggleButton) addedToggle).addEventFilter(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
-                                @Override public void handle(MouseEvent mouseEvent) {
-                                    if (addedToggle.equals(getSelectedToggle())) mouseEvent.consume();
-                                }
-                            });
-                        }
-                    }
-                }
-            });
-        }
-    }
+    
 		/**
 		Event handler for all user input
 		@param event the event to handle
