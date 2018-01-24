@@ -1,9 +1,9 @@
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
- Creates an array of pentomino objects
+ Creates an array of parcels
+ @author Zhecho Mitev
+ @author Christie Courtnage
  */
 
 public class PentominoFactory {
@@ -17,13 +17,13 @@ public class PentominoFactory {
      *	@param inputLetters A char array of the pentominoes that should be represented
      *	@return An array of unique pentomino objects
      */
-    public static Pentomino[] createLetters(char[] inputLetters){
+    public static Parcel[] createLetters(char[] inputLetters){
 
         int[][][] baseRotation; //Original form of letter
         int count = 0; // Counter for all unique orientations of the input pentominoes
 
-        Pentomino[] AllVar = new Pentomino[ALL_POSSIBLE_FIGURES];
-        Pentomino[] currentPentomino = new Pentomino[ALL_POSSIBLE_ROTATIONS];// array for all rotations and flips of the pentomino
+        Parcel[] AllVar = new Parcel[ALL_POSSIBLE_FIGURES];
+        Parcel[] currentParcel = new Parcel[ALL_POSSIBLE_ROTATIONS];// array for all rotations and flips of the pentomino
 
         if(Arrays.toString(inputLetters).contains("a") || Arrays.toString(inputLetters).contains("b") || Arrays.toString(inputLetters).contains("c")) {
             for (int i = 0; i < inputLetters.length; i++) {
@@ -31,7 +31,7 @@ public class PentominoFactory {
                 int currentCounter = 0;
                 baseRotation = createPemtomino(inputLetters[i]);
 
-                currentPentomino[currentCounter] = new Pentomino(baseRotation, inputLetters[i]);
+                currentParcel[currentCounter] = new Parcel(baseRotation, inputLetters[i]);
                 currentCounter++;
                 if (baseRotation.length == baseRotation[0].length && baseRotation[0].length == baseRotation[0][0].length) {
                     //do nothing because there just 1 rotation
@@ -40,26 +40,26 @@ public class PentominoFactory {
                         baseRotation.length == baseRotation[0][0].length) {
                     for (int j = 1; j < 3; j++) {
                         baseRotation = rotate3D(baseRotation);
-                        currentPentomino[j] = new Pentomino(baseRotation, inputLetters[i]);
+                        currentParcel[j] = new Parcel(baseRotation, inputLetters[i]);
                     }
                     currentCounter = 3;
                 } else {
                     for (int j = 1; j < 3; j++) {
                         baseRotation = rotate3D(baseRotation);
-                        currentPentomino[j] = new Pentomino(baseRotation, inputLetters[i]);
+                        currentParcel[j] = new Parcel(baseRotation, inputLetters[i]);
                         currentCounter++;
                     }
                     baseRotation = rotate2D(baseRotation);
                     for (int j = 3; j < 6; j++) {
-                        currentPentomino[j] = new Pentomino(baseRotation, inputLetters[i]);
+                        currentParcel[j] = new Parcel(baseRotation, inputLetters[i]);
                         currentCounter++;
                         baseRotation = rotate3D(baseRotation);
                     }
                     currentCounter = 6;
                 }
                 for (int k = 0; k < currentCounter; k++) {
-                    AllVar[count] = currentPentomino[k];
-                    currentPentomino[k] = null;
+                    AllVar[count] = currentParcel[k];
+                    currentParcel[k] = null;
                     count++;
                 }
             }
@@ -71,8 +71,8 @@ public class PentominoFactory {
             int currentCounter = 0;
 
             for (int j = 0; j < 4; j++){
-                if (isAllDifferent(baseRotation,currentPentomino)){
-                    currentPentomino[currentCounter] = new Pentomino(baseRotation,inputLetters[i]);
+                if (isAllDifferent(baseRotation, currentParcel)){
+                    currentParcel[currentCounter] = new Parcel(baseRotation,inputLetters[i]);
                     currentCounter++;
                 }
                 baseRotation = rotateXy(baseRotation);
@@ -83,8 +83,8 @@ public class PentominoFactory {
                 baseRotation = flipXyPlane(baseRotation);
 
                 for (int j = 0; j < 4; j++){
-                    if (isAllDifferent(baseRotation,currentPentomino)){
-                        currentPentomino[currentCounter] = new Pentomino(baseRotation,inputLetters[i]);
+                    if (isAllDifferent(baseRotation, currentParcel)){
+                        currentParcel[currentCounter] = new Parcel(baseRotation,inputLetters[i]);
                         currentCounter++;
                     }
                     baseRotation = rotateXy(baseRotation);
@@ -94,7 +94,7 @@ public class PentominoFactory {
             baseRotation = rotate3D(baseRotation);
 
             for (int j = 0; j < 4; j++){
-                currentPentomino[currentCounter] = new Pentomino(baseRotation,inputLetters[i]);
+                currentParcel[currentCounter] = new Parcel(baseRotation,inputLetters[i]);
                 currentCounter++;
                 baseRotation = rotateZy(baseRotation);
             }
@@ -104,7 +104,7 @@ public class PentominoFactory {
                 baseRotation = flipZyPlane(baseRotation);
 
                 for (int j = 0; j < 4; j++){
-                    currentPentomino[currentCounter] = new Pentomino(baseRotation,inputLetters[i]);
+                    currentParcel[currentCounter] = new Parcel(baseRotation,inputLetters[i]);
                     currentCounter++;
 
                     baseRotation = rotateZy(baseRotation);
@@ -114,7 +114,7 @@ public class PentominoFactory {
             baseRotation = rotate3D(baseRotation);
 
             for (int j = 0; j < 4; j++){
-                currentPentomino[currentCounter] = new Pentomino(baseRotation,inputLetters[i]);
+                currentParcel[currentCounter] = new Parcel(baseRotation,inputLetters[i]);
                 currentCounter++;
 
                 baseRotation = rotateXz(baseRotation);
@@ -125,7 +125,7 @@ public class PentominoFactory {
                 baseRotation = flipXzPlane(baseRotation);
 
                 for (int j = 0; j < 4; j++){
-                    currentPentomino[currentCounter] = new Pentomino(baseRotation,inputLetters[i]);
+                    currentParcel[currentCounter] = new Parcel(baseRotation,inputLetters[i]);
                     currentCounter++;
 
                     baseRotation = rotateXz(baseRotation);
@@ -133,8 +133,8 @@ public class PentominoFactory {
             }
 
             for (int k = 0; k < currentCounter; k++){
-                AllVar[count] = currentPentomino[k];
-                currentPentomino[k] = null;
+                AllVar[count] = currentParcel[k];
+                currentParcel[k] = null;
                 count++;
             }
         }
@@ -187,9 +187,9 @@ public class PentominoFactory {
     }
 
     /**
-     *	Creates a mirror image of an inputted int matrix
+     *	Creates a mirror image 
      *	@param shape The original shape
-     *	@return A mirror image of the of the front plane, mirrored on a vertical axis
+     *	@return A mirror image of the of the front plane, mirrored on a Xy axis
      */
     private static int[][][] flipXyPlane(int[][][] shape){
 
@@ -206,6 +206,12 @@ public class PentominoFactory {
 
         return newShape;
     }
+
+    /**
+     *	Creates a mirror image 
+     *	@param shape The original shape
+     *	@return A mirror image of the of the front plane, mirrored on a Xz axis
+     */
     private static int[][][] flipXzPlane(int[][][] shape){
 
         int height = shape[0].length;
@@ -221,6 +227,12 @@ public class PentominoFactory {
 
         return newShape;
     }
+
+    /**
+     *	Creates a mirror image 
+     *	@param shape The original shape
+     *	@return A mirror image of the of the front plane, mirrored on a Zy axis
+     */
     private static int[][][] flipZyPlane(int[][][] shape){
 
         int planes = shape.length;
@@ -238,9 +250,9 @@ public class PentominoFactory {
     }
 
     /**
-     *	Creates a copy of an imputted int matrix rotated 90degrees clockwise
-     *	@params matrix The original matrix
-     *	@return A matrix that is rotated 90 degrees clockwise from the original matrix
+     *	Creates a copy of an inputted int matrix rotated 90degrees clockwise by the X-Y axis
+     *	@param shape The original shape
+     *	@return A 3D array that is rotated 90 degrees clockwise by the X-Y axis from the original shape
      */
     private static int[][][] rotateXy(int[][][] shape){
         int height = shape[0].length;
@@ -254,6 +266,11 @@ public class PentominoFactory {
         return newShape;
     }
 
+    /**
+     *	Creates a copy of an inputted int matrix rotated 90degrees clockwise by the Y-Z axis
+     *	@param shape The original shape
+     *	@return A 3D array that is rotated 90 degrees clockwise by the Y-Z axis from the original shape
+     */
     private static int[][][] rotateZy(int[][][] shape){
         int planes = shape.length;
         int width = shape[0][0].length;
@@ -265,6 +282,11 @@ public class PentominoFactory {
         }
         return newShape;
     }
+    /**
+     *	Creates a copy of an inputted int matrix rotated 90degrees clockwise by the X-Z axis
+     *	@param shape The original shape
+     *	@return A 3D array that is rotated 90 degrees clockwise by the X-Z axis from the original shape
+     */
     private static int[][][] rotateXz(int[][][] shape){
         int height = shape[0].length;
         int planes = shape.length;
@@ -277,15 +299,20 @@ public class PentominoFactory {
         return newShape;
     }
 
-    private static int[][][] rotate3D(int[][][] preRotatedMatrix) {
-        int depth = preRotatedMatrix.length;
-        int height = preRotatedMatrix[0].length;
-        int width = preRotatedMatrix[0][0].length;
+    /**
+     * Switches the dimensions of the box
+     * @param preRotatedBox the box that should be rotated
+     * @return a box with the new switched dimensions
+     */
+    private static int[][][] rotate3D(int[][][] preRotatedBox) {
+        int depth = preRotatedBox.length;
+        int height = preRotatedBox[0].length;
+        int width = preRotatedBox[0][0].length;
         int[][][] newMatrix = new int[width][depth][height];
         for (int i = 0; i < depth; i++) {
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < width; k++) {
-                    newMatrix[k][i][j] = preRotatedMatrix[i][j][k];
+                    newMatrix[k][i][j] = preRotatedBox[i][j][k];
                 }
             }
         }
@@ -293,15 +320,20 @@ public class PentominoFactory {
         return newMatrix;
     }
 
-    private static int[][][] rotate2D(int[][][] preRotatedMatrix) {
-        int depth = preRotatedMatrix.length;
-        int height = preRotatedMatrix[0].length;
-        int width = preRotatedMatrix[0][0].length;
+    /**
+     * Switches the dimensions of the box
+     * @param preRotatedBox the box that should be rotated
+     * @return a box with the new switched dimensions
+     */
+    private static int[][][] rotate2D(int[][][] preRotatedBox) {
+        int depth = preRotatedBox.length;
+        int height = preRotatedBox[0].length;
+        int width = preRotatedBox[0][0].length;
         int[][][] newMatrix = new int[width][height][depth];
         for (int i = 0; i < depth; i++) {
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < width; k++) {
-                    newMatrix[k][j][i] = preRotatedMatrix[i][j][k];
+                    newMatrix[k][j][i] = preRotatedBox[i][j][k];
                 }
             }
         }
@@ -311,11 +343,11 @@ public class PentominoFactory {
 
     /**
      *	Tests whether an inputted matrix is different to every pentomino in an inputted array of pentominoes
-     *	@params Mat The matrix that is being tested
-     *	@params Arr An array of pentominoes
+     *	@param Mat The matrix that is being tested
+     *	@param Arr An array of pentominoes
      *	@return Whether the inputted matrix is different from all the other pentominoes
      */
-    private static boolean isAllDifferent(int[][][] Mat, Pentomino[] Arr){
+    private static boolean isAllDifferent(int[][][] Mat, Parcel[] Arr){
         int i = 0;
         while (Arr[i] != null){
             if (isDifferent(Mat,Arr[i].getPositioningInSpace()) == false)
@@ -328,8 +360,8 @@ public class PentominoFactory {
 
     /**
      *	Tests whether an inputted matrix is different to another inputted matrix
-     *	@params Mat1 The first matrix that is being tested
-     *	@params Mat2 The second matrix that is being tested
+     *	@param Mat1 The first matrix that is being tested
+     *	@param Mat2 The second matrix that is being tested
      *	@return Whether the two inputted arrays are different
      */
     private static boolean isDifferent(int[][][] Mat1, int[][][] Mat2){
