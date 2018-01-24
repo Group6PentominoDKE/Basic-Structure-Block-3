@@ -61,8 +61,6 @@ public class DynamicProgramming extends Algorithm {
     }
 
 
-
-
     /**
      * Accessor method for the Last element in the last array which is the maximum points
      * @return the maximum points gotten by the algorithm
@@ -197,12 +195,12 @@ public class DynamicProgramming extends Algorithm {
                     if (inBox[z][y][x] == "0"){
                         String[] possibleAddition = new String[2];
                         possibleAddition[0] = x+"x"+y+"x"+z;
-						possibleAddition[1] =  findEmptyRectangleX(x, y, z, inBox);
-						counter = addToArray(counter, tempReturnStringArray, possibleAddition);
-						possibleAddition[1] =  findEmptyRectangleY(x, y, z, inBox);
-						counter = addToArray(counter, tempReturnStringArray, possibleAddition);
-						possibleAddition[1] =  findEmptyRectangleZ(x, y, z, inBox);
-						counter = addToArray(counter, tempReturnStringArray, possibleAddition);
+                        possibleAddition[1] =  findEmptyRectangleX(x, y, z, inBox);
+                        counter = addToArray(counter, tempReturnStringArray, possibleAddition);
+                        possibleAddition[1] =  findEmptyRectangleY(x, y, z, inBox);
+                        counter = addToArray(counter, tempReturnStringArray, possibleAddition);
+                        possibleAddition[1] =  findEmptyRectangleZ(x, y, z, inBox);
+                        counter = addToArray(counter, tempReturnStringArray, possibleAddition);
                     }
                 }
 
@@ -214,144 +212,144 @@ public class DynamicProgramming extends Algorithm {
     }
 
     /**
-	 * Find the dimension of any rectangle from a specific starting point checking x first
-	 * @param x the starting x coordinate
-	 * @param y the starting y coordinate
-	 * @param z the starting z coordinate
-	 * @param inBox the current cargo space that is being filled
-	 * @return a sting of the dimensions of the empty rectangular prism seperated by "x"
-	 */
-	private String findEmptyRectangleX(int x, int y, int z, String[][][] inBox){
-		int tempX = 0;
-		int tempY = 0;
-		int tempZ = 0;
+     * Find the dimension of any rectangle from a specific starting point checking x first
+     * @param x the starting x coordinate
+     * @param y the starting y coordinate
+     * @param z the starting z coordinate
+     * @param inBox the current cargo space that is being filled
+     * @return a sting of the dimensions of the empty rectangular prism seperated by "x"
+     */
+    private String findEmptyRectangleX(int x, int y, int z, String[][][] inBox){
+        int tempX = 0;
+        int tempY = 0;
+        int tempZ = 0;
 
-		do {
-			tempX++;
-		} while(x+tempX < inBox[0][0].length && inBox[z][y][x+tempX] == "0");
-		
-		do {
-			tempY++;
-		} while(y+tempY < inBox[0].length && inBox[z][y+tempY][x] == "0");
-		
-		do {
-			tempZ++;
-		} while(z+tempZ < inBox.length && inBox[z+tempZ][y][x] == "0");
-		
-		
-		for (int z1 = z; z1 < z+tempZ; z1++)
-			for (int y1 = y; y1 < y+tempY; y1++)
-				for (int x1 = x; x1 < x+tempX; x1++) {
-					
-					if (x1+1 < inBox[0][0].length && z1 < inBox.length && y1 < inBox[0].length && inBox[z1][y1][x1+1] != "0"){
-						tempX = x1-x+1;
-					}	
+        do {
+            tempX++;
+        } while(x+tempX < inBox[0][0].length && inBox[z][y][x+tempX] == "0");
+
+        do {
+            tempY++;
+        } while(y+tempY < inBox[0].length && inBox[z][y+tempY][x] == "0");
+
+        do {
+            tempZ++;
+        } while(z+tempZ < inBox.length && inBox[z+tempZ][y][x] == "0");
 
 
-					if (y1+1 < inBox[0].length && x1 < inBox[0][0].length && z1 < inBox.length &&inBox[z1][y1+1][x1] != "0"){
-						tempY = y1-y+1;
-					}
-					
-					if (z1+1 < inBox.length && y1 < inBox[0].length && x1 < inBox[0][0].length && inBox[z1+1][y1][x1] != "0"){
-						tempZ = z1-z+1;
-					}						
-				}
-		
-		return tempX+"x"+tempY+"x"+tempZ;
-	} 
-	
-	/**
-	 * Find the dimension of any rectangle from a specific starting point checking Y first
-	 * @param x the starting x coordinate
-	 * @param y the starting y coordinate
-	 * @param z the starting z coordinate
-	 * @param inBox the current cargo space that is being filled
-	 * @return a sting of the dimensions of the empty rectangular prism seperated by "x"
-	 */
-	private static String findEmptyRectangleY(int x, int y, int z, String[][][] inBox){
-		int tempX = 0;
-		int tempY = 0;
-		int tempZ = 0;
+        for (int z1 = z; z1 < z+tempZ; z1++)
+            for (int y1 = y; y1 < y+tempY; y1++)
+                for (int x1 = x; x1 < x+tempX; x1++) {
 
-		do {
-			tempX++;
-		} while(x+tempX < inBox[0][0].length && inBox[z][y][x+tempX] == "0");
-		
-		do {
-			tempY++;
-		} while(y+tempY < inBox[0].length && inBox[z][y+tempY][x] == "0");
-		
-		do {
-			tempZ++;
-		} while(z+tempZ < inBox.length && inBox[z+tempZ][y][x] == "0");
-		
-		
-		for (int z1 = z; z1 < z+tempZ; z1++)
-			for (int x1 = x; x1 < x+tempX; x1++)			
-				for (int y1 = y; y1 < y+tempY; y1++) {
-					
-					if (y1+1 < inBox[0].length && x1 < inBox[0][0].length && z1 < inBox.length &&inBox[z1][y1+1][x1] != "0"){
-						tempY = y1-y+1;
-					}
-					
-					if (x1+1 < inBox[0][0].length && z1 < inBox.length && y1 < inBox[0].length && inBox[z1][y1][x1+1] != "0"){
-						tempX = x1-x+1;
-					}	
-					
-					if (z1+1 < inBox.length && y1 < inBox[0].length && x1 < inBox[0][0].length && inBox[z1+1][y1][x1] != "0"){
-						tempZ = z1-z+1;
-					}						
-				}
-		
-		return tempX+"x"+tempY+"x"+tempZ;
-		
-	} 
-	
-	/**
-	 * Find the dimension of any rectangle from a specific starting point checking Z first
-	 * @param x the starting x coordinate
-	 * @param y the starting y coordinate
-	 * @param z the starting z coordinate
-	 * @param inBox the current cargo space that is being filled
-	 * @return a sting of the dimensions of the empty rectangular prism seperated by "x"
-	 */
-	private static String findEmptyRectangleZ(int x, int y, int z, String[][][] inBox){
-		int tempX = 0;
-		int tempY = 0;
-		int tempZ = 0;
+                    if (x1+1 < inBox[0][0].length && z1 < inBox.length && y1 < inBox[0].length && inBox[z1][y1][x1+1] != "0"){
+                        tempX = x1-x+1;
+                    }
 
-		do {
-			tempX++;
-		} while(x+tempX < inBox[0][0].length && inBox[z][y][x+tempX] == "0");
-		
-		do {
-			tempY++;
-		} while(y+tempY < inBox[0].length && inBox[z][y+tempY][x] == "0");
-		
-		do {
-			tempZ++;
-		} while(z+tempZ < inBox.length && inBox[z+tempZ][y][x] == "0");	
-		
-		for (int x1 = x; x1 < x+tempX; x1++)			
-			for (int y1 = y; y1 < y+tempY; y1++) 
-				for (int z1 = z; z1 < z+tempZ; z1++){
-					
-					if (z1+1 < inBox.length && y1 < inBox[0].length && x1 < inBox[0][0].length && inBox[z1+1][y1][x1] != "0"){
-						tempZ = z1-z+1;
-					}
-					
-					if (y1+1 < inBox[0].length && x1 < inBox[0][0].length && z1 < inBox.length &&inBox[z1][y1+1][x1] != "0"){
-						tempY = y1-y+1;
-					}
-					
-					if (x1+1 < inBox[0][0].length && z1 < inBox.length && y1 < inBox[0].length && inBox[z1][y1][x1+1] != "0"){
-						tempX = x1-x+1;
-					}						
-				}
-		
-		return tempX+"x"+tempY+"x"+tempZ;
-		
-	}
+
+                    if (y1+1 < inBox[0].length && x1 < inBox[0][0].length && z1 < inBox.length &&inBox[z1][y1+1][x1] != "0"){
+                        tempY = y1-y+1;
+                    }
+
+                    if (z1+1 < inBox.length && y1 < inBox[0].length && x1 < inBox[0][0].length && inBox[z1+1][y1][x1] != "0"){
+                        tempZ = z1-z+1;
+                    }
+                }
+
+        return tempX+"x"+tempY+"x"+tempZ;
+    }
+
+    /**
+     * Find the dimension of any rectangle from a specific starting point checking Y first
+     * @param x the starting x coordinate
+     * @param y the starting y coordinate
+     * @param z the starting z coordinate
+     * @param inBox the current cargo space that is being filled
+     * @return a sting of the dimensions of the empty rectangular prism seperated by "x"
+     */
+    private static String findEmptyRectangleY(int x, int y, int z, String[][][] inBox){
+        int tempX = 0;
+        int tempY = 0;
+        int tempZ = 0;
+
+        do {
+            tempX++;
+        } while(x+tempX < inBox[0][0].length && inBox[z][y][x+tempX] == "0");
+
+        do {
+            tempY++;
+        } while(y+tempY < inBox[0].length && inBox[z][y+tempY][x] == "0");
+
+        do {
+            tempZ++;
+        } while(z+tempZ < inBox.length && inBox[z+tempZ][y][x] == "0");
+
+
+        for (int z1 = z; z1 < z+tempZ; z1++)
+            for (int x1 = x; x1 < x+tempX; x1++)
+                for (int y1 = y; y1 < y+tempY; y1++) {
+
+                    if (y1+1 < inBox[0].length && x1 < inBox[0][0].length && z1 < inBox.length &&inBox[z1][y1+1][x1] != "0"){
+                        tempY = y1-y+1;
+                    }
+
+                    if (x1+1 < inBox[0][0].length && z1 < inBox.length && y1 < inBox[0].length && inBox[z1][y1][x1+1] != "0"){
+                        tempX = x1-x+1;
+                    }
+
+                    if (z1+1 < inBox.length && y1 < inBox[0].length && x1 < inBox[0][0].length && inBox[z1+1][y1][x1] != "0"){
+                        tempZ = z1-z+1;
+                    }
+                }
+
+        return tempX+"x"+tempY+"x"+tempZ;
+
+    }
+
+    /**
+     * Find the dimension of any rectangle from a specific starting point checking Z first
+     * @param x the starting x coordinate
+     * @param y the starting y coordinate
+     * @param z the starting z coordinate
+     * @param inBox the current cargo space that is being filled
+     * @return a sting of the dimensions of the empty rectangular prism seperated by "x"
+     */
+    private static String findEmptyRectangleZ(int x, int y, int z, String[][][] inBox){
+        int tempX = 0;
+        int tempY = 0;
+        int tempZ = 0;
+
+        do {
+            tempX++;
+        } while(x+tempX < inBox[0][0].length && inBox[z][y][x+tempX] == "0");
+
+        do {
+            tempY++;
+        } while(y+tempY < inBox[0].length && inBox[z][y+tempY][x] == "0");
+
+        do {
+            tempZ++;
+        } while(z+tempZ < inBox.length && inBox[z+tempZ][y][x] == "0");
+
+        for (int x1 = x; x1 < x+tempX; x1++)
+            for (int y1 = y; y1 < y+tempY; y1++)
+                for (int z1 = z; z1 < z+tempZ; z1++){
+
+                    if (z1+1 < inBox.length && y1 < inBox[0].length && x1 < inBox[0][0].length && inBox[z1+1][y1][x1] != "0"){
+                        tempZ = z1-z+1;
+                    }
+
+                    if (y1+1 < inBox[0].length && x1 < inBox[0][0].length && z1 < inBox.length &&inBox[z1][y1+1][x1] != "0"){
+                        tempY = y1-y+1;
+                    }
+
+                    if (x1+1 < inBox[0][0].length && z1 < inBox.length && y1 < inBox[0].length && inBox[z1][y1][x1+1] != "0"){
+                        tempX = x1-x+1;
+                    }
+                }
+
+        return tempX+"x"+tempY+"x"+tempZ;
+
+    }
 
     /**
      * Method that either adds to the array, replaces and element in the array or does nothing depending on the size of the potential addition string compared to the other dimensions in the array.
@@ -400,9 +398,9 @@ public class DynamicProgramming extends Algorithm {
      * @return whether the second box is bigger than the first
      */
     private boolean isBiggerBox(int[]comp1, int[] comp2) {
-		if (comp1[0] == comp2[0] && comp1[1] == comp2[1] && comp1[2] == comp2[2]) {
-			return true;
-		}
+        if (comp1[0] == comp2[0] && comp1[1] == comp2[1] && comp1[2] == comp2[2]) {
+            return true;
+        }
         if (comp1[0] == comp2[0]) {
             if (comp1[1] < comp2[1] && comp1[2] <= comp2[2]){
                 return true;
@@ -543,7 +541,7 @@ public class DynamicProgramming extends Algorithm {
      * @param ID the uniquely identifying number for this iteration
      * @return the number of points the box contains
      */
-    private double fillBox(String[][][] box, int currentLevel, Pentomino currentPent, int ID) {
+    private double fillBox(String[][][] box, int currentLevel, Parcel currentPent, int ID) {
         String[][] newDimensions = findDimensions(box);
         if (newDimensions.length > 0) {
             double[] max = {0,0};
@@ -566,7 +564,6 @@ public class DynamicProgramming extends Algorithm {
     /**
      * Adds the current id to the already existing IDs in the box
      * @param box the current cargo space
-     * @param id the uniquely identifying number for this iteration
      */
     private void addIDToBox(String[][][] box){
         for (int z = 0; z < box.length; z++)
@@ -580,18 +577,5 @@ public class DynamicProgramming extends Algorithm {
                 }
         ID++;
     }
-
-    private void printMatrix(int[][][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                for (int k =  0; k < matrix[0][0].length; k++) {
-                    System.out.print(matrix[i][j][k]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-    }
-
 
 }
